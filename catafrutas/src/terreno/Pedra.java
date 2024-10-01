@@ -1,6 +1,7 @@
 package terreno;
-public class Pedra extends ObjEstaticos{
-  public Pedra(){
-    super("*");
-  }
+
+public class Pedra extends ObjEstaticos {
+	public Pedra() {
+		super("*");
+	}
 }

@@ -1,9 +1,7 @@
 package terreno;
 
-public class Abacate extends ObjEstaticos{
-      public Abacate(){
-        super("Ab");
-      }
+public class Abacate extends ObjEstaticos {
+	public Abacate() {
+		super("Ab");
+	}
 }
-
-
