@@ -1,147 +1,139 @@
 package terreno;
-import java.util.Random;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 public class Terreno{
   //Atributos
   private int dimensao;
+  
   private int qtdPedra;
-  private int qtdArvore;
-  //Contador da quantidade de pedras e árvores
-  public int cPedra = 0;
-  public int cArvore = 0;
+  private int qtdFrutaOuro;
+  private int qtdFrutaOuroChao;
+  private int qtdLaranja;
+  private int qtdAbacate;
+  private int qtdCoco;
+  private int qtdAcerola;
+  private int qtdAmora;
+  private int qtdGoiaba;
+  
+  
+  private int qtdArvoreLaranja;
+  private int qtdArvoreAbacate;
+  private int qtdArvoreCoco;
+  private int qtdArvoreAcerola;
+  private int qtdArvoreAmora;
+  private int qtdArvoreGoiaba;
+  
+  private int bichadas;
+  private int mochila;
   
   ObjEstaticos matriz[][];
-  //Obj para randomizar as posições
-  Random random = new Random();
+  List<ObjEstaticos> listaElementos = new ArrayList<>();
   
   //Construtor
-  public Terreno(int dimensao, int qtdPedra, int qtdArvore){
-    this.dimensao = dimensao;
-    this.qtdPedra = qtdPedra;
-    this.qtdArvore = qtdArvore;
-    matriz = new ObjEstaticos[dimensao][dimensao];
+  public Terreno(int dimensao, int qtdPedra, 
+		  		int qtdFrutaOuro, int qtdFrutaOuroChao, 
+				int qtdArvoreLaranja, int qtdLaranja,
+				int qtdArvoreAbacate, int qtdAbacate,
+				int qtdArvoreCoco, int qtdCoco,
+				int qtdArvoreAcerola,int qtdAcerola,
+				int qtdArvoreAmora,int qtdAmora,
+				int qtdArvoreGoiaba, int qtdGoiaba,
+				int bichadas, int mochila){
+	  
+	    this.dimensao = dimensao;
+	    this.qtdPedra = qtdPedra;
+	    
+	    this.qtdFrutaOuro = qtdFrutaOuro;
+	    this.qtdFrutaOuroChao = qtdFrutaOuroChao;
+	 
+	    this.qtdLaranja = qtdLaranja;
+	    this.qtdAbacate = qtdAbacate;
+	    this.qtdCoco = qtdCoco;
+	    this.qtdAcerola = qtdAcerola;
+	    this.qtdAmora = qtdAmora;
+	    this.qtdGoiaba = qtdGoiaba;
+	    
+	    this.qtdArvoreLaranja = qtdArvoreLaranja;
+	    this.qtdArvoreAbacate = qtdArvoreAbacate;
+	    this.qtdArvoreCoco = qtdArvoreCoco;
+	    this.qtdArvoreAcerola = qtdArvoreAcerola;
+	    this.qtdArvoreAmora = qtdArvoreAmora;
+	    this.qtdArvoreGoiaba = qtdArvoreGoiaba;
+	    
+	    this.bichadas = bichadas;
+	    this.mochila = mochila;
+	    
+	    matriz = new ObjEstaticos[dimensao][dimensao];
   }
 
-  public int getQtdPedras(){
-    return qtdPedra;
-  }
-  public int getQtdArvores(){
-    return qtdArvore;
-  }
-  //Método criaTerreno cria uma matriz com todas as árvores e pedras passadas no construtor
-  //usando o contador para fazer a verificação
+  //Método criaTerreno cria uma lista com todos os elementos, para depois usar o método shuffle
   public void criarTerreno(){
-    for(int i = 0; i < dimensao; i++){
-      for(int j = 0; j < dimensao; j++){
-        if(cPedra < getQtdPedras()){
-          matriz[i][j] = new Pedra();
-          cPedra++;
-        }
-        else if(cArvore < getQtdArvores()){
-          matriz[i][j] = new Arvore();
-          cArvore++;
-        }
-        else{
-          matriz[i][j] = new Grama();
-        }
+	  
+	  for(int i = 0; i < qtdPedra; i++) listaElementos.add(new Pedra());
+	  
+      for (int i = 0; i < qtdArvoreLaranja; i++) listaElementos.add(new Arvore("Tl"));
+      for (int i = 0; i < qtdArvoreAbacate; i++) listaElementos.add(new Arvore("Tab"));
+      for (int i = 0; i < qtdArvoreCoco; i++) listaElementos.add(new Arvore("Tc"));
+      for (int i = 0; i < qtdArvoreAcerola; i++) listaElementos.add(new Arvore("Tac"));
+      for (int i = 0; i < qtdArvoreAmora; i++) listaElementos.add(new Arvore("Tam"));
+      for (int i = 0; i < qtdArvoreGoiaba; i++) listaElementos.add(new Arvore("Tg"));
+      
+      for (int i = 0; i < qtdFrutaOuroChao; i++) listaElementos.add(new FrutaOuro());
+      for (int i = 0; i < qtdCoco; i++) listaElementos.add(new Coco());
+      for (int i = 0; i < qtdAbacate; i++) listaElementos.add(new Abacate());
+      for (int i = 0; i < qtdLaranja; i++) listaElementos.add(new Laranja());
+      for (int i = 0; i < qtdAcerola; i++) listaElementos.add(new Acerola());
+      for (int i = 0; i < qtdAmora; i++) listaElementos.add(new Amora());
+      for (int i = 0; i < qtdGoiaba; i++) listaElementos.add(new Goiaba());
+      
+      while (listaElementos.size() < dimensao * dimensao) {
+    	  listaElementos.add(new Grama());
       }
-    }
-    //Depois de criada, o método misturaMatriz faz um shuffle e embaralha todos os elementos,
-    //Para deixar randomico
-    misturaMatriz(matriz);
+      //shuffle
+      Collections.shuffle(listaElementos);
+      
+      //transforma a lista em matriz
+      int ci = 0;
+      for (int i = 0; i < dimensao; i++) {
+          for (int j = 0; j < dimensao; j++) {
+              matriz[i][j] = listaElementos.get(ci++);
+          }
+      }
   }
-
-  public void misturaMatriz(ObjEstaticos[][] matriz){
-    List<ObjEstaticos> lista = new ArrayList<ObjEstaticos>();
-
-        //Transforma a matriz em lista, pq o método Shuffle só funciona em listas
-        for (int i = 0; i < matriz.length; i++) {
-            for (int j = 0; j < matriz[i].length; j++) {
-                lista.add(matriz[i][j]);
-            }
-        }
-
-        //Embaralha a lista
-        Collections.shuffle(lista);
-
-        //Coloca de volta na matriz
-        int index = 0;
-        for (int i = 0; i < matriz.length; i++) {
-            for (int j = 0; j < matriz[i].length; j++) {
-                matriz[i][j] = lista.get(index++);
-            }
-        }
-    }
-  //================ LÓGICA ANTIGA, IGNORAR =================
-  // public void criarTerreno(){
-  //   double chanceGramaInicial = 0.8;
-  //   double chanceGramaFinal = 0.2;
-  //   for(int i = 0; i < dimensao; i++){
-  //     for(int j = 0; j < dimensao; j++){
-  //        double progresso = ((double)(i * dimensao + j)) / (dimensao * dimensao);
-  //        double chanceGrama = chanceGramaInicial * (1 - progresso) + chanceGramaFinal * progresso;
-  //        double randomValue = random.nextDouble();
-  //        if (randomValue < chanceGrama) {  
-  //            matriz[i][j] = new Grama();
-  //        }else{
-  //         int nrandom = random.nextInt(2) + 1;
-  //         switch(nrandom){
-  //           case 1:
-  //             if(cPedra < getQtdPedras()){
-  //               matriz[i][j] = new Pedra();
-  //               cPedra++;
-  //             }
-  //             else{
-  //               matriz[i][j] = new Grama();
-  //             }
-  //             break;
-  //           case 2:
-  //             if(cArvore < getQtdArvores()){
-  //               matriz[i][j] = new Arvore();
-  //               cArvore++;
-  //             }
-  //             else{
-  //               matriz[i][j] = new Grama();
-  //             }
-  //             break;
-  //           default:
-  //             matriz[i][j] = new Grama();
-  //             break;
-  //         }
-  //       }
-  //     }
-  //   }
-  //   while (cPedra < getQtdPedras() || cArvore < getQtdArvores()) {
-  //     for (int i = 0; i < dimensao; i++) {
-  //       for (int j = 0; j < dimensao; j++) {
-  //         if (matriz[i][j] instanceof Grama) {  
-  //           if (cPedra < getQtdPedras()) {   
-  //               matriz[i][j] = new Pedra();
-  //               cPedra++;
-  //           }else if (cArvore < getQtdArvores()) {  
-  //               matriz[i][j] = new Arvore();
-  //               cArvore++;
-  //           }
-  //       }
-        
-  //       if (cPedra >= getQtdPedras() && cArvore >= getQtdArvores()) {
-  //           break;
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
-
   
-  //Imprime a matriz
+  //imprime a matriz
   public void imprimirTerreno(){
-    for(int i = 0; i < dimensao; i++){
-      for(int j = 0; j < dimensao; j++){
-        System.out.print("[" + matriz[i][j].getTipo() + "]");
-      }
-    System.out.println();
-    }
+	    for(int i = 0; i < dimensao; i++){
+	      for(int j = 0; j < dimensao; j++){
+	        System.out.print("[ " + matriz[i][j].getTipo() + " ]");
+	      }
+	    System.out.println();
+	    }
+  }
+  
+  //método para salvar a config
+  public void salvarConfig(String nomeArq) {
+	  try (BufferedWriter arquivo = new BufferedWriter(new FileWriter(nomeArq))) {
+		  arquivo.write("dimensao " + dimensao + System.getProperty("line.separator"));
+		  arquivo.write("pedras " + qtdPedra + System.getProperty("line.separator"));
+		  arquivo.write("maracuja " + qtdFrutaOuro +" "+ qtdFrutaOuroChao + System.getProperty("line.separator"));
+		  arquivo.write("laranja " + qtdArvoreLaranja+" "+ qtdLaranja + System.getProperty("line.separator"));
+		  arquivo.write("abacate " + qtdArvoreAbacate+" "+ qtdAbacate + System.getProperty("line.separator"));
+		  arquivo.write("coco " + qtdArvoreCoco+" "+ qtdCoco + System.getProperty("line.separator"));
+		  arquivo.write("acerola " + qtdArvoreAcerola+" "+ qtdAcerola + System.getProperty("line.separator"));
+		  arquivo.write("amora " + qtdArvoreAmora+" "+ qtdAmora + System.getProperty("line.separator"));
+		  arquivo.write("goiaba " + qtdArvoreGoiaba+" "+ qtdGoiaba + System.getProperty("line.separator"));
+		  arquivo.write("bichadas " + bichadas + System.getProperty("line.separator"));
+		  arquivo.write("mochila " + mochila);
+		  
+		  arquivo.flush();
+		  
+	  } catch (IOException e) {
+		e.printStackTrace();
+	}
   }
 }
