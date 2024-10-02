@@ -17,6 +17,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
 
+import javax.swing.JOptionPane;
+
+import java.io.IOException;
+
 public class TelaSalvarTerreno extends JFrame {
 	private Terreno terreno;
 
@@ -55,11 +59,25 @@ public class TelaSalvarTerreno extends JFrame {
 		panel.setBackground(Color.BLACK);
 		panel.setBounds(374, 30, 700, 700);
 		contentPane.add(panel);
-		// panel.setLayout(new GridLayout(5, 5, 5, 5));
 
 		exibirTerrenoPainel(panel, terreno);
 
 		JButton btnSalvarConfig = new JButton("Salvar configuração");
+		btnSalvarConfig.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String nomeArq = JOptionPane.showInputDialog(null, "Digite o nome do arquivo sem a extensão.");
+				if (nomeArq != null && !nomeArq.trim().isEmpty()) {
+					String caminhoArquivo = "Terrenos" + System.getProperty("file.separator") + nomeArq + ".txt";
+					terreno.salvarConfig(caminhoArquivo);
+
+					JOptionPane.showMessageDialog(null, "Arquivo salvo com sucesso: " + caminhoArquivo,
+							"Salvar Configuração", JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null, "Operação cancelada.", "Salvar Configuração",
+							JOptionPane.WARNING_MESSAGE);
+				}
+			}
+		});
 		btnSalvarConfig.setBounds(89, 128, 161, 83);
 		contentPane.add(btnSalvarConfig);
 
@@ -154,4 +172,5 @@ public class TelaSalvarTerreno extends JFrame {
 		panel.revalidate();
 		panel.repaint();
 	}
+
 }
