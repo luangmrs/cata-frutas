@@ -33,7 +33,7 @@ public class Terreno {
 	private int bichadas;
 	private int mochila;
 
-	ObjEstaticos matriz[][];
+	ObjEstaticos[][] matriz;
 	List<ObjEstaticos> listaElementos = new ArrayList<>();
 
 	// Construtor
@@ -67,6 +67,150 @@ public class Terreno {
 
 		matriz = new ObjEstaticos[dimensao][dimensao];
 
+	}
+
+	public int getDimensao() {
+		return dimensao;
+	}
+
+	public void setDimensao(int dimensao) {
+		this.dimensao = dimensao;
+	}
+
+	public int getQtdPedra() {
+		return qtdPedra;
+	}
+
+	public void setQtdPedra(int qtdPedra) {
+		this.qtdPedra = qtdPedra;
+	}
+
+	public int getQtdFrutaOuro() {
+		return qtdFrutaOuro;
+	}
+
+	public void setQtdFrutaOuro(int qtdFrutaOuro) {
+		this.qtdFrutaOuro = qtdFrutaOuro;
+	}
+
+	public int getQtdFrutaOuroChao() {
+		return qtdFrutaOuroChao;
+	}
+
+	public void setQtdFrutaOuroChao(int qtdFrutaOuroChao) {
+		this.qtdFrutaOuroChao = qtdFrutaOuroChao;
+	}
+
+	public int getQtdLaranja() {
+		return qtdLaranja;
+	}
+
+	public void setQtdLaranja(int qtdLaranja) {
+		this.qtdLaranja = qtdLaranja;
+	}
+
+	public int getQtdAbacate() {
+		return qtdAbacate;
+	}
+
+	public void setQtdAbacate(int qtdAbacate) {
+		this.qtdAbacate = qtdAbacate;
+	}
+
+	public int getQtdCoco() {
+		return qtdCoco;
+	}
+
+	public void setQtdCoco(int qtdCoco) {
+		this.qtdCoco = qtdCoco;
+	}
+
+	public int getQtdAcerola() {
+		return qtdAcerola;
+	}
+
+	public void setQtdAcerola(int qtdAcerola) {
+		this.qtdAcerola = qtdAcerola;
+	}
+
+	public int getQtdAmora() {
+		return qtdAmora;
+	}
+
+	public void setQtdAmora(int qtdAmora) {
+		this.qtdAmora = qtdAmora;
+	}
+
+	public int getQtdGoiaba() {
+		return qtdGoiaba;
+	}
+
+	public void setQtdGoiaba(int qtdGoiaba) {
+		this.qtdGoiaba = qtdGoiaba;
+	}
+
+	public int getQtdArvoreLaranja() {
+		return qtdArvoreLaranja;
+	}
+
+	public void setQtdArvoreLaranja(int qtdArvoreLaranja) {
+		this.qtdArvoreLaranja = qtdArvoreLaranja;
+	}
+
+	public int getQtdArvoreAbacate() {
+		return qtdArvoreAbacate;
+	}
+
+	public void setQtdArvoreAbacate(int qtdArvoreAbacate) {
+		this.qtdArvoreAbacate = qtdArvoreAbacate;
+	}
+
+	public int getQtdArvoreCoco() {
+		return qtdArvoreCoco;
+	}
+
+	public void setQtdArvoreCoco(int qtdArvoreCoco) {
+		this.qtdArvoreCoco = qtdArvoreCoco;
+	}
+
+	public int getQtdArvoreAcerola() {
+		return qtdArvoreAcerola;
+	}
+
+	public void setQtdArvoreAcerola(int qtdArvoreAcerola) {
+		this.qtdArvoreAcerola = qtdArvoreAcerola;
+	}
+
+	public int getQtdArvoreAmora() {
+		return qtdArvoreAmora;
+	}
+
+	public void setQtdArvoreAmora(int qtdArvoreAmora) {
+		this.qtdArvoreAmora = qtdArvoreAmora;
+	}
+
+	public int getQtdArvoreGoiaba() {
+		return qtdArvoreGoiaba;
+	}
+
+	public void setQtdArvoreGoiaba(int qtdArvoreGoiaba) {
+		this.qtdArvoreGoiaba = qtdArvoreGoiaba;
+	}
+
+	public int getBichadas() {
+		return bichadas;
+	}
+
+	public void setBichadas(int bichadas) {
+		this.bichadas = bichadas;
+	}
+
+	public int getMochila() {
+		return mochila;
+	}
+
+	public void setMochila(int mochila) {
+		this.mochila = mochila;
 	}
 
 	// Método criaTerreno cria uma lista com todos os elementos, para depois usar o
@@ -119,6 +263,28 @@ public class Terreno {
 		}
 	}
 
+	public void shuffleMatriz() {
+		List<ObjEstaticos> listaShuffle = new ArrayList<>();
+
+		// Converte a matriz em uma lista
+		for (ObjEstaticos[] linha : matriz) {
+			for (ObjEstaticos elemento : linha) {
+				listaShuffle.add(elemento);
+			}
+		}
+
+		// Embaralha a lista
+		Collections.shuffle(listaShuffle);
+
+		// Transforma a lista de volta em uma matriz
+		int index = 0;
+		for (int i = 0; i < matriz.length; i++) {
+			for (int j = 0; j < matriz[i].length; j++) {
+				matriz[i][j] = listaShuffle.get(index++);
+			}
+		}
+	}
+
 	// imprime a matriz
 	public void imprimirTerreno() {
 		validarTerreno();
@@ -150,6 +316,10 @@ public class Terreno {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public ObjEstaticos getMatriz(int i, int j) {
+		return matriz[i][j];
 	}
 
 	public void lerConfiguracao(String nomeArquivo) {
@@ -209,10 +379,11 @@ public class Terreno {
 	}
 
 	public void validarTerreno() {
-		if (dimensao < 5 || dimensao < (qtdLaranja + qtdAbacate + qtdCoco + qtdAcerola + qtdAmora + qtdGoiaba
+		if (dimensao < 5)
+			throw new IllegalArgumentException("Dimensão menor que 5.");
+		if (dimensao * dimensao < (qtdLaranja + qtdAbacate + qtdCoco + qtdAcerola + qtdAmora + qtdGoiaba
 				+ qtdArvoreLaranja + qtdArvoreAbacate + qtdArvoreCoco + qtdArvoreAcerola + qtdArvoreAmora
-				+ qtdArvoreGoiaba + qtdPedra)) {
+				+ qtdArvoreGoiaba + qtdPedra))
 			throw new IllegalArgumentException("Dimensão menor que a quantidade de elementos.");
-		}
 	}
 }
