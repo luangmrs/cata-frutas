@@ -33,12 +33,12 @@ public class MainFrame extends JFrame {
 	}
 
 	public MainFrame() {
+		setSize(1100,600);
 		setResizable(false);
 		setForeground(new Color(0, 0, 0));
 		setBackground(Color.BLACK);
 		setTitle("Cata-Frutas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(1100, 700);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(245, 245, 245));
@@ -54,6 +54,13 @@ public class MainFrame extends JFrame {
 		contentPane.add(lblCataFrutas);
 
 		JButton btnIniciarJogo = new JButton("Iniciar jogo");
+		btnIniciarJogo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCarregarTerreno TelaJogo = new TelaCarregarTerreno();
+				TelaJogo.setVisible(true);
+				dispose();
+			}
+		});
 		btnIniciarJogo.setForeground(new Color(245, 245, 245));
 		btnIniciarJogo.setFont(new Font("Yu Gothic UI Light", Font.PLAIN, 30));
 		btnIniciarJogo.setBackground(new Color(119, 136, 153));

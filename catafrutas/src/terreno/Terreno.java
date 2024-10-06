@@ -383,7 +383,9 @@ public class Terreno {
 			throw new IllegalArgumentException("Dimensão menor que 5.");
 		if (dimensao * dimensao < (qtdLaranja + qtdAbacate + qtdCoco + qtdAcerola + qtdAmora + qtdGoiaba
 				+ qtdArvoreLaranja + qtdArvoreAbacate + qtdArvoreCoco + qtdArvoreAcerola + qtdArvoreAmora
-				+ qtdArvoreGoiaba + qtdPedra))
+				+ qtdArvoreGoiaba + qtdPedra + qtdFrutaOuroChao))
 			throw new IllegalArgumentException("Dimensão menor que a quantidade de elementos.");
+		if (qtdFrutaOuro < 1 && qtdFrutaOuroChao < 1)
+			throw new IllegalArgumentException("A quantidade de maracujás tem que ser no mínimo 1");
 	}
 }
