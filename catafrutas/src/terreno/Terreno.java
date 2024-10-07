@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Classe com todos métodos da criação de terreno.
+ */
 public class Terreno {
 	// Atributos
 	private int dimensao;
@@ -36,7 +39,29 @@ public class Terreno {
 	ObjEstaticos[][] matriz;
 	List<ObjEstaticos> listaElementos = new ArrayList<>();
 
-	// Construtor
+	/**
+	 * Constrói um novo objeto com as especificações dadas
+	 * 
+	 * @param dimensao         O tamanho do terreno em: dimensao * dimensao.
+	 * @param qtdPedra         Quantidade de pedras no terreno
+	 * @param qtdFrutaOuro     Quantidade de Frutas Ouros no jogo.
+	 * @param qtdFrutaOuroChao Quantidade de Frutas Ouros que estarão em blocos de
+	 *                         grama no começo do jogo.
+	 * @param qtdArvoreLaranja Quantidade árvores de laranja.
+	 * @param qtdLaranja       Quantidade de laranjas.
+	 * @param qtdArvoreAbacate Quantidade árvores de abacate.
+	 * @param qtdAbacate       Quantidade de abacates.
+	 * @param qtdArvoreCoco    Quantidade árvores de coco.
+	 * @param qtdCoco          Quantidade de cocos.
+	 * @param qtdArvoreAcerola Quantidade árvores de acerola.
+	 * @param qtdAcerola       Quantidade de arcerolas.
+	 * @param qtdArvoreAmora   Quantidade árvores de amora.
+	 * @param qtdAmora         Quantidade de amoras.
+	 * @param qtdArvoreGoiaba  Quantidade árvores de goiaba.
+	 * @param qtdGoiaba        Quantidade de goiabas.
+	 * @param bichadas         Quantidade de frutas bichadas no jogo.
+	 * @param mochila          Tamanho da mochila do jogador.
+	 */
 	public Terreno(int dimensao, int qtdPedra, int qtdFrutaOuro, int qtdFrutaOuroChao, int qtdArvoreLaranja,
 			int qtdLaranja, int qtdArvoreAbacate, int qtdAbacate, int qtdArvoreCoco, int qtdCoco, int qtdArvoreAcerola,
 			int qtdAcerola, int qtdArvoreAmora, int qtdAmora, int qtdArvoreGoiaba, int qtdGoiaba, int bichadas,
@@ -213,8 +238,10 @@ public class Terreno {
 		this.mochila = mochila;
 	}
 
-	// Método criaTerreno cria uma lista com todos os elementos, para depois usar o
-	// método shuffle
+	/**
+	 * Método que cria uma lista com todos os elementos, para depois usar o método
+	 * shuffle, e transformar em matriz novamente.
+	 */
 	public void criarTerreno() {
 
 		for (int i = 0; i < qtdPedra; i++)
@@ -251,10 +278,9 @@ public class Terreno {
 		while (listaElementos.size() < dimensao * dimensao) {
 			listaElementos.add(new Grama());
 		}
-		// shuffle
+
 		Collections.shuffle(listaElementos);
 
-		// transforma a lista em matriz
 		int ci = 0;
 		for (int i = 0; i < dimensao; i++) {
 			for (int j = 0; j < dimensao; j++) {
@@ -263,20 +289,20 @@ public class Terreno {
 		}
 	}
 
+	/**
+	 * Método que faz o embaralhamento do terreno, sem precisar criar outro.
+	 */
 	public void shuffleMatriz() {
 		List<ObjEstaticos> listaShuffle = new ArrayList<>();
 
-		// Converte a matriz em uma lista
 		for (ObjEstaticos[] linha : matriz) {
 			for (ObjEstaticos elemento : linha) {
 				listaShuffle.add(elemento);
 			}
 		}
 
-		// Embaralha a lista
 		Collections.shuffle(listaShuffle);
 
-		// Transforma a lista de volta em uma matriz
 		int index = 0;
 		for (int i = 0; i < matriz.length; i++) {
 			for (int j = 0; j < matriz[i].length; j++) {
@@ -285,7 +311,9 @@ public class Terreno {
 		}
 	}
 
-	// imprime a matriz
+	/**
+	 * Método que imprime o terreno no terminal.
+	 */
 	public void imprimirTerreno() {
 		validarTerreno();
 		for (int i = 0; i < dimensao; i++) {
@@ -296,7 +324,11 @@ public class Terreno {
 		}
 	}
 
-	// método para salvar a config
+	/**
+	 * Método que salva a configuração do terreno em um arquivo
+	 * 
+	 * @param nomeArq Nome do arquivo que será salvo
+	 */
 	public void salvarConfig(String nomeArq) {
 		try (BufferedWriter arquivo = new BufferedWriter(new FileWriter(nomeArq))) {
 			arquivo.write("dimensao " + dimensao + System.getProperty("line.separator"));
@@ -322,13 +354,18 @@ public class Terreno {
 		return matriz[i][j];
 	}
 
+	/**
+	 * Método que lê um arquivo e cria um objeto terreno com as especificações
+	 * descritas
+	 * 
+	 * @param nomeArquivo Nome do arquivo
+	 */
 	public void lerConfiguracao(String nomeArquivo) {
 		try (BufferedReader file = new BufferedReader(new FileReader(nomeArquivo))) {
 			String linha;
 			while ((linha = file.readLine()) != null) {
 				String[] partes = linha.split(" ");
 
-				// Verifica a palavra-chave e atribui os valores adequados
 				switch (partes[0]) {
 				case "dimensao":
 					dimensao = Integer.parseInt(partes[1]);
@@ -378,6 +415,9 @@ public class Terreno {
 		}
 	}
 
+	/**
+	 * Método que valida se o terreno cumpre com as regras.
+	 */
 	public void validarTerreno() {
 		if (dimensao < 5)
 			throw new IllegalArgumentException("Dimensão menor que 5.");

@@ -23,6 +23,9 @@ import java.awt.Image;
 import javax.swing.JOptionPane;
 import java.awt.Font;
 
+/**
+ * Tela para salvar a configuração do terreno
+ */
 public class TelaSalvarTerreno extends JFrame {
 	private Terreno terreno;
 
@@ -30,18 +33,18 @@ public class TelaSalvarTerreno extends JFrame {
 	private JPanel contentPane;
 
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaCriarTerreno frame2 = new TelaCriarTerreno();
-					Terreno ter1 = new Terreno(15, 6, 0, 2, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0);
-					TelaSalvarTerreno frame = new TelaSalvarTerreno(ter1, frame2);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					TelaCriarTerreno frame2 = new TelaCriarTerreno();
+//					Terreno ter1 = new Terreno(15, 6, 0, 2, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0);
+//					TelaSalvarTerreno frame = new TelaSalvarTerreno(ter1, frame2);
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
 	}
 
 	public TelaSalvarTerreno(Terreno terreno, TelaCriarTerreno frame) {
@@ -117,6 +120,13 @@ public class TelaSalvarTerreno extends JFrame {
 		contentPane.add(btnVoltarTelaCriarTerreno);
 	}
 
+	/**
+	 * Método que exibe o terreno feito em um painel dentro da janela em que é
+	 * chamado
+	 * 
+	 * @param panel   Nome do painel
+	 * @param terreno Objeto terreno
+	 */
 	public static void exibirTerrenoPainel(JPanel panel, Terreno terreno) {
 		panel.removeAll();
 		int dimensao = terreno.getDimensao();
@@ -124,7 +134,8 @@ public class TelaSalvarTerreno extends JFrame {
 		panel.setLayout(new GridLayout(dimensao, dimensao, 1, 1));
 		int cellWidth = (panel.getWidth() / dimensao);
 		int cellHeight = (panel.getHeight() / dimensao);
-		for (int i = 0; i < dimensao; i++) {;
+		for (int i = 0; i < dimensao; i++) {
+			;
 			for (int j = 0; j < dimensao; j++) {
 				JLabel label = new JLabel();
 				label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -134,88 +145,103 @@ public class TelaSalvarTerreno extends JFrame {
 
 				if (elemento.getTipo().equalsIgnoreCase("*")) {
 					label.setBackground(Color.GRAY);
-					label.setIcon(new ImageIcon("img"+System.getProperty("file.separator")+"finalizados"+System.getProperty("file.separator")+"pedra.jpg"));
+					label.setIcon(new ImageIcon("img" + System.getProperty("file.separator") + "finalizados"
+							+ System.getProperty("file.separator") + "pedra.jpg"));
 					Image img = ((ImageIcon) label.getIcon()).getImage();
 					Image newimg = img.getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH);
 					label.setIcon(new ImageIcon(newimg));
 				} else if (elemento.getTipo().equalsIgnoreCase("M")) {
 					label.setBackground(new Color(196, 199, 4));
-					label.setIcon(new ImageIcon("img"+System.getProperty("file.separator")+"finalizados"+System.getProperty("file.separator")+"fruta-ouro-0005.jpg"));
+					label.setIcon(new ImageIcon("img" + System.getProperty("file.separator") + "finalizados"
+							+ System.getProperty("file.separator") + "fruta-ouro-0005.jpg"));
 					Image img = ((ImageIcon) label.getIcon()).getImage();
 					Image newimg = img.getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH);
 					label.setIcon(new ImageIcon(newimg));
 				} else if (elemento.getTipo().equalsIgnoreCase("Tl")) {
 					label.setBackground(new Color(196, 107, 4));
-					label.setIcon(new ImageIcon("img"+System.getProperty("file.separator")+"finalizados"+System.getProperty("file.separator")+"laranjeira.jpg"));
+					label.setIcon(new ImageIcon("img" + System.getProperty("file.separator") + "finalizados"
+							+ System.getProperty("file.separator") + "laranjeira.jpg"));
 					Image img = ((ImageIcon) label.getIcon()).getImage();
 					Image newimg = img.getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH);
 					label.setIcon(new ImageIcon(newimg));
 				} else if (elemento.getTipo().equalsIgnoreCase("L")) {
 					label.setBackground(new Color(211, 156, 4));
-					label.setIcon(new ImageIcon("img"+System.getProperty("file.separator")+"finalizados"+System.getProperty("file.separator")+"laranja.jpg"));
+					label.setIcon(new ImageIcon("img" + System.getProperty("file.separator") + "finalizados"
+							+ System.getProperty("file.separator") + "laranja.jpg"));
 					Image img = ((ImageIcon) label.getIcon()).getImage();
 					Image newimg = img.getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH);
 					label.setIcon(new ImageIcon(newimg));
 				} else if (elemento.getTipo().equalsIgnoreCase("Tab")) {
 					label.setBackground(new Color(211, 84, 0));
-					label.setIcon(new ImageIcon("img"+System.getProperty("file.separator")+"finalizados"+System.getProperty("file.separator")+"abacateira.jpg"));
+					label.setIcon(new ImageIcon("img" + System.getProperty("file.separator") + "finalizados"
+							+ System.getProperty("file.separator") + "abacateira.jpg"));
 					Image img = ((ImageIcon) label.getIcon()).getImage();
 					Image newimg = img.getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH);
 					label.setIcon(new ImageIcon(newimg));
 				} else if (elemento.getTipo().equalsIgnoreCase("ab")) {
-					label.setIcon(new ImageIcon("img"+System.getProperty("file.separator")+"finalizados"+System.getProperty("file.separator")+"abacate.jpg"));
+					label.setIcon(new ImageIcon("img" + System.getProperty("file.separator") + "finalizados"
+							+ System.getProperty("file.separator") + "abacate.jpg"));
 					Image img = ((ImageIcon) label.getIcon()).getImage();
 					Image newimg = img.getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH);
 					label.setIcon(new ImageIcon(newimg));
 				} else if (elemento.getTipo().equalsIgnoreCase("Tc")) {
-					label.setIcon(new ImageIcon("img"+System.getProperty("file.separator")+"finalizados"+System.getProperty("file.separator")+"coqueiro.jpg"));
+					label.setIcon(new ImageIcon("img" + System.getProperty("file.separator") + "finalizados"
+							+ System.getProperty("file.separator") + "coqueiro.jpg"));
 					Image img = ((ImageIcon) label.getIcon()).getImage();
 					Image newimg = img.getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH);
 					label.setIcon(new ImageIcon(newimg));
 				} else if (elemento.getTipo().equalsIgnoreCase("C")) {
 					label.setBackground(new Color(25, 111, 61));
-					label.setIcon(new ImageIcon("img"+System.getProperty("file.separator")+"finalizados"+System.getProperty("file.separator")+"coco.jpg"));
+					label.setIcon(new ImageIcon("img" + System.getProperty("file.separator") + "finalizados"
+							+ System.getProperty("file.separator") + "coco.jpg"));
 					Image img = ((ImageIcon) label.getIcon()).getImage();
 					Image newimg = img.getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH);
 					label.setIcon(new ImageIcon(newimg));
 				} else if (elemento.getTipo().equalsIgnoreCase("Tac")) {
 					label.setBackground(new Color(205, 97, 85));
-					label.setIcon(new ImageIcon("img"+System.getProperty("file.separator")+"finalizados"+System.getProperty("file.separator")+"aceroleira.jpg"));
+					label.setIcon(new ImageIcon("img" + System.getProperty("file.separator") + "finalizados"
+							+ System.getProperty("file.separator") + "aceroleira.jpg"));
 					Image img = ((ImageIcon) label.getIcon()).getImage();
 					Image newimg = img.getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH);
 					label.setIcon(new ImageIcon(newimg));
 				} else if (elemento.getTipo().equalsIgnoreCase("Ac")) {
 					label.setBackground(new Color(217, 136, 128));
-					label.setIcon(new ImageIcon("img"+System.getProperty("file.separator")+"finalizados"+System.getProperty("file.separator")+"acerola.jpg"));
+					label.setIcon(new ImageIcon("img" + System.getProperty("file.separator") + "finalizados"
+							+ System.getProperty("file.separator") + "acerola.jpg"));
 					Image img = ((ImageIcon) label.getIcon()).getImage();
 					Image newimg = img.getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH);
 					label.setIcon(new ImageIcon(newimg));
 				} else if (elemento.getTipo().equalsIgnoreCase("Tam")) {
 					label.setBackground(new Color(123, 36, 28));
-					label.setIcon(new ImageIcon("img"+System.getProperty("file.separator")+"finalizados"+System.getProperty("file.separator")+"amoeira.jpg"));
+					label.setIcon(new ImageIcon("img" + System.getProperty("file.separator") + "finalizados"
+							+ System.getProperty("file.separator") + "amoeira.jpg"));
 					Image img = ((ImageIcon) label.getIcon()).getImage();
 					Image newimg = img.getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH);
 					label.setIcon(new ImageIcon(newimg));
 				} else if (elemento.getTipo().equalsIgnoreCase("Am")) {
 					label.setBackground(new Color(169, 50, 38));
-					label.setIcon(new ImageIcon("img"+System.getProperty("file.separator")+"finalizados"+System.getProperty("file.separator")+"amora.jpg"));
+					label.setIcon(new ImageIcon("img" + System.getProperty("file.separator") + "finalizados"
+							+ System.getProperty("file.separator") + "amora.jpg"));
 					Image img = ((ImageIcon) label.getIcon()).getImage();
 					Image newimg = img.getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH);
 					label.setIcon(new ImageIcon(newimg));
 				} else if (elemento.getTipo().equalsIgnoreCase("Tg")) {
-					label.setIcon(new ImageIcon("img"+System.getProperty("file.separator")+"finalizados"+System.getProperty("file.separator")+"goiabeira.jpg"));
+					label.setIcon(new ImageIcon("img" + System.getProperty("file.separator") + "finalizados"
+							+ System.getProperty("file.separator") + "goiabeira.jpg"));
 					Image img = ((ImageIcon) label.getIcon()).getImage();
 					Image newimg = img.getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH);
 					label.setIcon(new ImageIcon(newimg));
 				} else if (elemento.getTipo().equalsIgnoreCase("G")) {
 					label.setBackground(new Color(187, 143, 206));
-					label.setIcon(new ImageIcon("img"+System.getProperty("file.separator")+"finalizados"+System.getProperty("file.separator")+"goiaba.jpg"));
+					label.setIcon(new ImageIcon("img" + System.getProperty("file.separator") + "finalizados"
+							+ System.getProperty("file.separator") + "goiaba.jpg"));
 					Image img = ((ImageIcon) label.getIcon()).getImage();
 					Image newimg = img.getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH);
 					label.setIcon(new ImageIcon(newimg));
 				} else {
 					label.setBackground(new Color(46, 204, 113));
-					label.setIcon(new ImageIcon("img"+System.getProperty("file.separator")+"finalizados"+System.getProperty("file.separator")+"grama.jpg"));
+					label.setIcon(new ImageIcon("img" + System.getProperty("file.separator") + "finalizados"
+							+ System.getProperty("file.separator") + "grama.jpg"));
 					Image img = ((ImageIcon) label.getIcon()).getImage();
 					Image newimg = img.getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH);
 					label.setIcon(new ImageIcon(newimg));

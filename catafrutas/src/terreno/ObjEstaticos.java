@@ -1,5 +1,8 @@
 package terreno;
 
+/**
+ * Classe mãe de todos objetos estáticos do terreno.
+ */
 public class ObjEstaticos {
 	protected String tipo;
 

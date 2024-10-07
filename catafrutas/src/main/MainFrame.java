@@ -14,6 +14,14 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+/**
+ * Tela inicial do jogo, com botões de iniciar jogo e criar terreno
+ * 
+ * @author Luan
+ * @author Rafael
+ * @author Maria
+ * @author Thayla
+ */
 public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -33,7 +41,7 @@ public class MainFrame extends JFrame {
 	}
 
 	public MainFrame() {
-		setSize(1100,600);
+		setSize(1100, 600);
 		setResizable(false);
 		setForeground(new Color(0, 0, 0));
 		setBackground(Color.BLACK);

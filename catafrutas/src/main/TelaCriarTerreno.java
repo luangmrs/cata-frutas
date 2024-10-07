@@ -18,6 +18,9 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 
+/**
+ * Tela que recebe as configurações para ser criado o terreno.
+ */
 public class TelaCriarTerreno extends JFrame {
 
 	private static final long serialVersionUID = 1L;
