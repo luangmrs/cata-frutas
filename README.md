@@ -1,2 +1,2 @@
-# cata-frutas
-Jogo Cata-Frutas/Projeto POO.
+# Cata-Frutas
+oop practice
